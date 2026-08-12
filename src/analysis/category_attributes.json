@@ -1,0 +1,250 @@
+{
+  "_comment": [
+    "Category-level attributes shared across ALL profiles. A profile may not set",
+    "tau or decay per category; those derive from these tables. This is what makes",
+    "profile construction auditable instead of per-category hand-tuning.",
+    "",
+    "tau derives from trip purpose. decay derives from substitutability.",
+    "grouping derives from functional_class."
+  ],
+  "_sources": {
+    "trip_purpose_distance_m": {
+      "bibkey": "rahul2021acceptable",
+      "citation": "Rahul, T. M., Manoj, M., Tahlyan, D. & Verma, A. (2021). The Influence of Activities and Socio-Economic/Demographic Factors on the Acceptable Distance in an Indian Scenario. Transportation in Developing Economies 7(1):3. doi:10.1007/s40890-020-00110-3. Table 3.",
+      "context": "Bangalore household travel survey, 2400 households, 95% confidence / 2% margin of error, Sept 2012 - Mar 2013. Same city as this study.",
+      "definition": "'Acceptable distance' is the fitted log-normal threshold beyond which a traveller shifts mode or route. It is NOT a mean trip distance - do not cite the two interchangeably.",
+      "caveats": [
+        "Survey predates most of Bangalore's metro network.",
+        "Age was NOT a significant differentiator (all bands pooled at 343 m); trip purpose, gender, income and tenure were. This is why profiles are not built on life stage."
+      ]
+    },
+    "walking_speed_m_per_min": {
+      "bibkey": "banerjee2018pedestrian",
+      "citation": "Banerjee, A., Maurya, A. K. & Lammel, G. (2018). A Review of Pedestrian Flow Characteristics and Level of Service over Different Pedestrian Facilities. Collective Dynamics 3:1-52. doi:10.17815/CD.2018.17",
+      "value": "80 m/min = 4.8 km/h. The review reports sidewalk free-flow speeds of 65-85 m/min (mean 79) across countries; 80 is the standard planning value and sits at that mean.",
+      "why_not_valhalla_default": "Valhalla's 5.1 km/h (85 m/min) sits at the CEILING of the observed range. 4.8 km/h gives a 1200 m fifteen-minute reach, matching the ~1200 m assumed across the 15-minute-city literature.",
+      "why_not_observed_journey_speed": "The survey's mean walking trip (869 m in 24 min) implies 36 m/min, below any measured walking speed. That figure is a ratio of means over skewed distributions and conflates detour, walking speed and delay: 869 m x 1.38 detour = 1199 m network, which at 79 m/min is 15.2 min, leaving 8.8 min (37%) of crossing/waiting/reporting delay. A uniform slowdown would mis-model delay that is concentrated at road crossings.",
+      "demographic_multipliers": "Same review: males walk 4-9 m/min faster than females; older pedestrians 15-20 m/min slower. An older pedestrian at ~61.5 m/min covers in 15 min what the reference pedestrian covers in ~11.7, so mobility differences map onto tau shifts on the shared grid rather than needing per-profile catchments.",
+      "caveat": "These are FREE-FLOW speeds - a theoretical maximum excluding crossings and congestion. Catchments therefore represent unimpeded walking and are optimistic against real journeys."
+    },
+    "substitutability": "NOT empirically grounded. Derived from functional class as a stated modelling assumption: facilities whose function is fulfilled by one good instance are 'low'; those where variety itself is the benefit are 'high'.",
+    "disamenity_buffer_m": {
+      "bibkey": "li2022neighborhood",
+      "citation": "Li, Y., Mallinson, P. A. C., Aggarwal, A., Kulkarni, B. & Kinra, S. (2022). Association of Neighborhood Alcohol Environment With Alcohol Intake and Cardiovascular Risk Factors in India: Cross-Sectional Evidence From APCAPS. Frontiers in Cardiovascular Medicine 9:844086. doi:10.3389/fcvm.2022.844086.",
+      "context": "Indian cohort. Alcohol outlet density within a 400 m buffer of the household was associated with adverse cardiovascular measures, and the association was stronger for the immediate locality than for village-wide availability - so 400 m is an evidenced radius at which proximity to these outlets is consequential in India.",
+      "corroboration": [
+        "Karnataka excise licensing prohibits a liquor outlet within 100 m of an educational or religious institution or hospital, which codifies the same separation but at a distance below both our 250 m cell and our 3-minute minimum threshold, so it motivates rather than parameterises the setting.",
+        "Campbell et al. (2009), Am J Prev Med 37(6):556-569, doi:10.1016/j.amepre.2009.09.028: Community Preventive Services Task Force review of 88 studies finding greater outlet density associated with increased consumption and related harms including violence."
+      ]
+    }
+  },
+  "walking_speed_m_per_min": 80,
+  "tau_grid": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "trip_purpose_distance_m": {
+    "work": 996,
+    "pick_up_drop": 666,
+    "recreation_medical_social": 360,
+    "household_business": 263
+  },
+  "purpose_of": {
+    "work": [
+      "metro station"
+    ],
+    "pick_up_drop": [
+      "Schools+school"
+    ],
+    "recreation_medical_social": [
+      "Hospitals+hospital",
+      "Pharmacy+pharmacy",
+      "shops+body+chemist",
+      "park+park",
+      "leisure+playground",
+      "leisure+swimming_pool",
+      "leisure+fitness_station",
+      "leisure+cinema",
+      "library+library",
+      "food+drink+restaurant",
+      "food+drink+cafe",
+      "food+drink+bar",
+      "food+drink+pub",
+      "food+drink+fast_food",
+      "food+drink+food_court",
+      "food+drink+ice_cream"
+    ],
+    "household_business": [
+      "shops+food+general",
+      "shops+food+convenience",
+      "shops+food+greengrocer",
+      "shops+food+supermarket",
+      "shops+food+bakery",
+      "shops+food+dairy",
+      "shops+food+butcher",
+      "shops+food+beverages",
+      "shops+food+kiosk",
+      "shops+food+pastry",
+      "shops+food+alcohol",
+      "money+atm",
+      "money+bank",
+      "shops+clothes+clothes",
+      "shops+clothes+shoes",
+      "shops+clothes+bag",
+      "shops+clothes+boutique",
+      "shops+clothes+fabric",
+      "shops+clothes+dry_cleaning",
+      "shops+clothes+laundry",
+      "shops+body+beauty",
+      "shops+body+hairdresser",
+      "shops+body+cosmetics",
+      "shops+body+jewelry",
+      "shops+body+massage",
+      "shops+body+tattoo"
+    ]
+  },
+  "substitutability_of": {
+    "low": [
+      "Hospitals+hospital",
+      "Schools+school",
+      "metro station",
+      "library+library",
+      "leisure+swimming_pool",
+      "leisure+cinema",
+      "leisure+fitness_station"
+    ],
+    "medium": [
+      "Pharmacy+pharmacy",
+      "shops+body+chemist",
+      "shops+food+supermarket",
+      "park+park",
+      "leisure+playground",
+      "money+bank",
+      "shops+clothes+dry_cleaning",
+      "shops+clothes+laundry"
+    ],
+    "high": [
+      "money+atm",
+      "food+drink+restaurant",
+      "food+drink+cafe",
+      "food+drink+bar",
+      "food+drink+pub",
+      "food+drink+fast_food",
+      "food+drink+food_court",
+      "food+drink+ice_cream",
+      "shops+food+general",
+      "shops+food+convenience",
+      "shops+food+greengrocer",
+      "shops+food+bakery",
+      "shops+food+dairy",
+      "shops+food+butcher",
+      "shops+food+beverages",
+      "shops+food+kiosk",
+      "shops+food+pastry",
+      "shops+food+alcohol",
+      "shops+clothes+clothes",
+      "shops+clothes+shoes",
+      "shops+clothes+bag",
+      "shops+clothes+boutique",
+      "shops+clothes+fabric",
+      "shops+body+beauty",
+      "shops+body+hairdresser",
+      "shops+body+cosmetics",
+      "shops+body+jewelry",
+      "shops+body+massage",
+      "shops+body+tattoo"
+    ]
+  },
+  "substitutability_to_decay": {
+    "low": "focused",
+    "medium": "balanced",
+    "high": "expansive"
+  },
+  "functional_class": {
+    "transport": [
+      "metro station"
+    ],
+    "education": [
+      "Schools+school",
+      "library+library"
+    ],
+    "healthcare": [
+      "Hospitals+hospital",
+      "Pharmacy+pharmacy",
+      "shops+body+chemist"
+    ],
+    "daily_food_retail": [
+      "shops+food+general",
+      "shops+food+convenience",
+      "shops+food+greengrocer",
+      "shops+food+kiosk",
+      "shops+food+dairy",
+      "shops+food+butcher",
+      "shops+food+bakery",
+      "shops+food+beverages",
+      "shops+food+pastry",
+      "shops+food+alcohol"
+    ],
+    "grocery_anchor": [
+      "shops+food+supermarket"
+    ],
+    "finance": [
+      "money+atm",
+      "money+bank"
+    ],
+    "dining": [
+      "food+drink+restaurant",
+      "food+drink+cafe",
+      "food+drink+bar",
+      "food+drink+pub",
+      "food+drink+fast_food",
+      "food+drink+food_court",
+      "food+drink+ice_cream"
+    ],
+    "recreation": [
+      "park+park",
+      "leisure+playground",
+      "leisure+swimming_pool",
+      "leisure+fitness_station",
+      "leisure+cinema"
+    ],
+    "apparel": [
+      "shops+clothes+clothes",
+      "shops+clothes+shoes",
+      "shops+clothes+bag",
+      "shops+clothes+boutique",
+      "shops+clothes+fabric"
+    ],
+    "personal_services": [
+      "shops+clothes+dry_cleaning",
+      "shops+clothes+laundry",
+      "shops+body+beauty",
+      "shops+body+hairdresser",
+      "shops+body+cosmetics",
+      "shops+body+jewelry",
+      "shops+body+massage",
+      "shops+body+tattoo"
+    ]
+  },
+  "disamenity_buffer_m": {
+    "alcohol_outlets": 400
+  },
+  "disamenity_of": {
+    "alcohol_outlets": [
+      "food+drink+bar",
+      "food+drink+pub",
+      "shops+food+alcohol"
+    ]
+  }
+}

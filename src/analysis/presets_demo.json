@@ -1,0 +1,48 @@
+{
+  "_comment": [
+    "ILLUSTRATIVE ONLY. This configuration exists to make each control visible in",
+    "a figure; it is not evidence-derived and is not one of the four profiles",
+    "reported in the results. It is written by hand rather than produced by",
+    "build_profiles.py precisely because its parameters are chosen for legibility",
+    "rather than traceability, and mixing the two would blur that distinction.",
+    "",
+    "Design requirements it satisfies:",
+    "  - a base of three wanted groups, so a score exists to be raised or lowered",
+    "  - one demonstration group that is well enough mapped for all four",
+    "    treatments to produce a visible, different map",
+    "  - a dining bundle with enough members that grouping versus separate",
+    "    evaluation is actually distinguishable",
+    "  - thresholds wide enough that the effects read at whole-city scale"
+  ],
+
+  "_aliases": {},
+
+  "demo": {
+    "label": "Demonstration configuration",
+    "basis": "Illustrative. Not evidence-derived; used only for the component-effect figures.",
+    "groups": [
+      {
+        "label": "Parks",
+        "categories": ["park+park"],
+        "weight": "standard", "decay": "balanced", "tau": 9
+      },
+      {
+        "label": "Healthcare",
+        "categories": ["Hospitals+hospital", "Pharmacy+pharmacy"],
+        "weight": "standard", "decay": "balanced", "tau": 9
+      },
+      {
+        "label": "Dining",
+        "categories": ["food+drink+restaurant", "food+drink+fast_food",
+                       "food+drink+cafe", "food+drink+ice_cream",
+                       "shops+food+bakery", "food+drink+food_court"],
+        "weight": "standard", "decay": "balanced", "tau": 9
+      },
+      {
+        "label": "Bars and pubs",
+        "categories": ["food+drink+bar", "food+drink+pub"],
+        "weight": "standard", "decay": "balanced", "tau": 12
+      }
+    ]
+  }
+}

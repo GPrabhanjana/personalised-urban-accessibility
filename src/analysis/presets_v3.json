@@ -1,0 +1,228 @@
+{
+  "_generated_by": "build_profiles.py from category_attributes.json + evidence_profiles.json - do not edit by hand",
+  "_aliases": {
+    "metro": "metro station"
+  },
+  "worker_commuter": {
+    "label": "Worker (work-trip dominant)",
+    "basis": "Work accounts for 38% of trips and is the single significant distance outlier - acceptable distance 996 m against 500 m mean for non-work, Z = 10.96 [rahul2021acceptable]. Transit access carries the work trip. No required group: metro is genuinely sparse (74 stations, 86% of cells unreached), so requiring it would encode Bangalore's transit gap as user infeasibility. No avoided group either: this profile is away from the neighbourhood for most of the day, which is the period during which the licensed-premises nuisance in [li2022neighborhood] and [campbell2009outlet] arises.",
+    "groups": [
+      {
+        "label": "Metro Access",
+        "categories": [
+          "metro station"
+        ],
+        "weight": "preferred",
+        "decay": "focused",
+        "tau": 12
+      },
+      {
+        "label": "Dining",
+        "categories": [
+          "food+drink+restaurant",
+          "food+drink+fast_food"
+        ],
+        "weight": "preferred",
+        "decay": "expansive",
+        "tau": 4
+      },
+      {
+        "label": "Banking",
+        "categories": [
+          "money+atm",
+          "money+bank"
+        ],
+        "weight": "standard",
+        "decay": "expansive",
+        "tau": 3
+      },
+      {
+        "label": "Hospitals",
+        "categories": [
+          "Hospitals+hospital"
+        ],
+        "weight": "standard",
+        "decay": "focused",
+        "tau": 4
+      }
+    ]
+  },
+  "school_run_household": {
+    "label": "School-run Household (pick-up/drop dominant)",
+    "basis": "Pick-up/drop differs significantly from other non-work purposes at 666 m, which [rahul2021acceptable] attributes to parents' willingness to walk further for children's schooling. Schools is one of only two categories mapped well enough to carry a requirement (22.7% unreached). The avoided group is the profile where the separation is most explicitly recognised: Karnataka excise licensing prohibits a liquor outlet within 100 m of an educational institution, and [li2022neighborhood] evidences a 400 m exposure radius in an Indian setting.",
+    "groups": [
+      {
+        "label": "Schools",
+        "categories": [
+          "Schools+school"
+        ],
+        "weight": "required",
+        "decay": "focused",
+        "tau": 8
+      },
+      {
+        "label": "Parks",
+        "categories": [
+          "park+park"
+        ],
+        "weight": "preferred",
+        "decay": "balanced",
+        "tau": 4
+      },
+      {
+        "label": "Hospitals",
+        "categories": [
+          "Hospitals+hospital"
+        ],
+        "weight": "preferred",
+        "decay": "focused",
+        "tau": 4
+      },
+      {
+        "label": "Groceries",
+        "categories": [
+          "shops+food+supermarket"
+        ],
+        "weight": "standard",
+        "decay": "balanced",
+        "tau": 3
+      },
+      {
+        "label": "Banking",
+        "categories": [
+          "money+bank"
+        ],
+        "weight": "standard",
+        "decay": "balanced",
+        "tau": 3
+      },
+      {
+        "label": "Alcohol Outlets",
+        "categories": [
+          "food+drink+bar",
+          "food+drink+pub",
+          "shops+food+alcohol"
+        ],
+        "weight": "avoided",
+        "decay": "balanced",
+        "tau": 5
+      }
+    ]
+  },
+  "non_worker_local": {
+    "label": "Non-Worker (neighbourhood-bound)",
+    "basis": "62% of trips are non-work and non-workers made 261 of 558 walking trips [rahul2021acceptable], so this profile spends the largest share of the day inside the neighbourhood and is the most exposed to whatever is in it. That exposure is the reason for the avoided group, and it is weighted more heavily here than for the school-run household on the same reasoning. Parks is required as the second of the two adequately mapped categories.",
+    "groups": [
+      {
+        "label": "Parks",
+        "categories": [
+          "park+park"
+        ],
+        "weight": "required",
+        "decay": "balanced",
+        "tau": 4
+      },
+      {
+        "label": "Hospitals",
+        "categories": [
+          "Hospitals+hospital"
+        ],
+        "weight": "preferred",
+        "decay": "focused",
+        "tau": 4
+      },
+      {
+        "label": "Pharmacies",
+        "categories": [
+          "Pharmacy+pharmacy"
+        ],
+        "weight": "preferred",
+        "decay": "balanced",
+        "tau": 4
+      },
+      {
+        "label": "Banking",
+        "categories": [
+          "money+bank",
+          "money+atm"
+        ],
+        "weight": "standard",
+        "decay": "expansive",
+        "tau": 3
+      },
+      {
+        "label": "Groceries",
+        "categories": [
+          "shops+food+supermarket"
+        ],
+        "weight": "standard",
+        "decay": "balanced",
+        "tau": 3
+      },
+      {
+        "label": "Alcohol Outlets",
+        "categories": [
+          "food+drink+bar",
+          "food+drink+pub",
+          "shops+food+alcohol"
+        ],
+        "weight": "preferred_avoided",
+        "decay": "balanced",
+        "tau": 5
+      }
+    ]
+  },
+  "social_recreational": {
+    "label": "Social/Recreational (leisure-trip dominant)",
+    "basis": "Eat-out, entertainment, recreation, social and civic purposes form a single 360 m bundle with no significant internal differences [rahul2021acceptable], so they are weighted together rather than split. This profile wants the licensed premises that the other two avoid, at the same distance, which is the clearest demonstration that the framework's output is a function of who is asking rather than of the location alone.",
+    "groups": [
+      {
+        "label": "Dining",
+        "categories": [
+          "food+drink+restaurant",
+          "food+drink+fast_food"
+        ],
+        "weight": "preferred",
+        "decay": "expansive",
+        "tau": 4
+      },
+      {
+        "label": "Nightlife",
+        "categories": [
+          "food+drink+bar",
+          "food+drink+pub"
+        ],
+        "weight": "preferred",
+        "decay": "expansive",
+        "tau": 4
+      },
+      {
+        "label": "Parks",
+        "categories": [
+          "park+park"
+        ],
+        "weight": "preferred",
+        "decay": "balanced",
+        "tau": 4
+      },
+      {
+        "label": "Swimming Pools",
+        "categories": [
+          "leisure+swimming_pool"
+        ],
+        "weight": "standard",
+        "decay": "focused",
+        "tau": 4
+      },
+      {
+        "label": "Banking",
+        "categories": [
+          "money+atm"
+        ],
+        "weight": "standard",
+        "decay": "expansive",
+        "tau": 3
+      }
+    ]
+  }
+}

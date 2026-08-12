@@ -1,0 +1,66 @@
+category,raw_count,effective_count,action,merged_into,reason
+Hospitals+clinic,3,3,drop,,count 3 < min 25
+Hospitals+hospital,1210,1210,keep,,count 1210 >= min 25
+Hospitals+university,2,2,drop,,count 2 < min 25
+Pharmacy+pharmacy,939,939,keep,,count 939 >= min 25
+Schools+school,2036,2036,keep,,count 2036 >= min 25
+food+drink+bar,159,159,keep,,count 159 >= min 25
+food+drink+cafe,928,928,keep,,count 928 >= min 25
+food+drink+fast_food,1531,1531,keep,,count 1531 >= min 25
+food+drink+food_court,59,59,keep,,count 59 >= min 25
+food+drink+ice_cream,178,178,keep,,count 178 >= min 25
+food+drink+pub,224,224,keep,,count 224 >= min 25
+food+drink+restaurant,2927,2927,keep,,count 2927 >= min 25
+leisure+amusement_arcade,5,5,drop,,count 5 < min 25
+leisure+aquarium,10,10,drop,,count 10 < min 25
+leisure+cinema,184,184,keep,,count 184 >= min 25
+leisure+dance,13,13,drop,,count 13 < min 25
+leisure+dog_park,3,3,drop,,count 3 < min 25
+leisure+fitness_station,358,358,keep,,count 358 >= min 25
+leisure+nightclub,5,5,drop,,count 5 < min 25
+leisure+playground,946,946,keep,,count 946 >= min 25
+leisure+swimming_pool,2404,2404,keep,,count 2404 >= min 25
+library+library,136,136,keep,,count 136 >= min 25
+metro station,148,148,keep,,count 148 >= min 25
+money+atm,1095,1095,keep,,count 1095 >= min 25
+money+bank,1407,1407,keep,,count 1407 >= min 25
+park+park,3279,3279,keep,,count 3279 >= min 25
+shops+body+beauty,386,386,keep,,count 386 >= min 25
+shops+body+chemist,28,28,keep,,count 28 >= min 25
+shops+body+cosmetics,55,55,keep,,count 55 >= min 25
+shops+body+hairdresser,369,369,keep,,count 369 >= min 25
+shops+body+hearing_aids,10,10,drop,,count 10 < min 25
+shops+body+jewelry,348,348,keep,,count 348 >= min 25
+shops+body+massage,21,21,keep,,force_keep (count 21 < min 25)
+shops+body+perfumery,12,12,drop,,count 12 < min 25
+shops+body+tattoo,19,19,keep,,force_keep (count 19 < min 25)
+shops+body+tobacco,6,6,drop,,count 6 < min 25
+shops+clothes+bag,37,37,keep,,count 37 >= min 25
+shops+clothes+boutique,30,30,keep,,count 30 >= min 25
+shops+clothes+clothes,1406,1406,keep,,count 1406 >= min 25
+shops+clothes+dry_cleaning,73,73,keep,,count 73 >= min 25
+shops+clothes+fabric,17,17,keep,,force_keep (count 17 < min 25)
+shops+clothes+fashion,5,5,drop,,count 5 < min 25
+shops+clothes+fashion_accessories,19,19,drop,,count 19 < min 25
+shops+clothes+laundry,101,101,keep,,count 101 >= min 25
+shops+clothes+outdoor,8,8,drop,,count 8 < min 25
+shops+clothes+shoe_repair,4,4,drop,,count 4 < min 25
+shops+clothes+shoes,213,213,keep,,count 213 >= min 25
+shops+clothes+tailor,1,1,drop,,count 1 < min 25
+shops+food+alcohol,102,102,keep,,count 102 >= min 25
+shops+food+bakery,598,598,keep,,count 598 >= min 25
+shops+food+beverages,50,50,keep,,count 50 >= min 25
+shops+food+butcher,155,155,keep,,count 155 >= min 25
+shops+food+convenience,414,414,keep,,count 414 >= min 25
+shops+food+dairy,187,187,keep,,count 187 >= min 25
+shops+food+farm,18,18,drop,,count 18 < min 25
+shops+food+general,30,30,keep,,count 30 >= min 25
+shops+food+greengrocer,281,281,keep,,count 281 >= min 25
+shops+food+health_food,4,4,drop,,count 4 < min 25
+shops+food+herbalist,3,3,drop,,count 3 < min 25
+shops+food+kiosk,96,96,keep,,count 96 >= min 25
+shops+food+nutrition_supplements,7,7,drop,,count 7 < min 25
+shops+food+pastry,81,81,keep,,count 81 >= min 25
+shops+food+seafood,23,23,drop,,count 23 < min 25
+shops+food+spices,6,6,drop,,count 6 < min 25
+shops+food+supermarket,698,698,keep,,count 698 >= min 25

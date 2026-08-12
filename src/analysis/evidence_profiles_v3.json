@@ -1,0 +1,74 @@
+{
+  "_comment": [
+    "v3. Supersedes evidence_profiles_v2.json, which it reproduces exactly for the",
+    "wanted groups. What is new is that three profiles now say something about what",
+    "they do NOT want nearby, which the framework gained the ability to express.",
+    "",
+    "Nothing here sets tau or decay. Both derive from category_attributes.json:",
+    "wanted groups take tau from the trip purpose that motivates the walk, avoided",
+    "groups from the evidenced exposure radius for that disamenity."
+  ],
+
+  "_grounding": {
+    "axis": "Trip purpose was the strongest significant factor in [rahul2021acceptable]: worker work-trips vs worker non-work trips Z = 10.96; pick-up/drop and personal/household business each differ significantly from other non-work purposes. Age was NOT significant. Income, gender and tenure were significant but their categories are unmappable in OSM.",
+    "distances": "Acceptable walking distance by purpose, [rahul2021acceptable] Table 3: work 996 m, pick-up/drop 666 m, recreation/medical/social 360 m, household business 263 m. Converted at 80 m/min [banerjee2018pedestrian].",
+    "composition": "[rahul2021acceptable] Table 1: work = 38% of trips (mean 1210 m), non-work = 62% (mean 500 m). Non-workers made 261 of 558 walking trips.",
+    "avoidance": "Alcohol outlets are the one disamenity in this category set with an evidence base that is both quantitative and Indian. [li2022neighborhood] found outlet density within a 400 m household buffer associated with adverse cardiovascular measures in an Indian cohort, and that the immediate locality mattered more than village-wide availability; 400 m is therefore the exposure radius used, giving tau = 5 min at 80 m/min. The international evidence for outlet density and harm is summarised by [campbell2009outlet]. Karnataka excise licensing separately bars an outlet within 100 m of an educational institution, religious institution or hospital, which recognises the same relationship in law but at a distance below both the 250 m cell and the 3-minute minimum threshold, so it motivates the setting rather than parameterising it."
+  },
+
+  "_data_constraint": {
+    "rule": "A category may carry a REQUIRED weight only if under 25% of ward cells cannot reach it within 15 minutes. Only park+park and Schools+school qualify.",
+    "avoidance_note": "Avoidance carries no equivalent floor. An unmapped disamenity produces a penalty of zero, which understates the nuisance rather than fabricating one, so a sparse avoided category is conservative rather than misleading. Bars (2,806 cells), pubs (2,430) and alcohol shops (2,043) are among the better-mapped discretionary categories in any case.",
+    "real_vs_data_sparsity": "metro station is 86% unreached, but that is REAL: 74 stations matches Namma Metro's operational network. Sparse-but-accurate categories may be used as preferred; unmapped ones are excluded entirely.",
+    "excluded": "kirana/general, chemist, convenience, greengrocer, marketplace, tea - all >60% unreached and undercounted by an order of magnitude or more."
+  },
+
+  "worker_commuter": {
+    "label": "Worker (work-trip dominant)",
+    "basis": "Work accounts for 38% of trips and is the single significant distance outlier - acceptable distance 996 m against 500 m mean for non-work, Z = 10.96 [rahul2021acceptable]. Transit access carries the work trip. No required group: metro is genuinely sparse (74 stations, 86% of cells unreached), so requiring it would encode Bangalore's transit gap as user infeasibility. No avoided group either: this profile is away from the neighbourhood for most of the day, which is the period during which the licensed-premises nuisance in [li2022neighborhood] and [campbell2009outlet] arises.",
+    "groups": [
+      {"label": "Metro Access", "categories": ["metro station"], "weight": "preferred"},
+      {"label": "Dining", "categories": ["food+drink+restaurant", "food+drink+fast_food"], "weight": "preferred"},
+      {"label": "Banking", "categories": ["money+atm", "money+bank"], "weight": "standard"},
+      {"label": "Hospitals", "categories": ["Hospitals+hospital"], "weight": "standard"}
+    ]
+  },
+
+  "school_run_household": {
+    "label": "School-run Household (pick-up/drop dominant)",
+    "basis": "Pick-up/drop differs significantly from other non-work purposes at 666 m, which [rahul2021acceptable] attributes to parents' willingness to walk further for children's schooling. Schools is one of only two categories mapped well enough to carry a requirement (22.7% unreached). The avoided group is the profile where the separation is most explicitly recognised: Karnataka excise licensing prohibits a liquor outlet within 100 m of an educational institution, and [li2022neighborhood] evidences a 400 m exposure radius in an Indian setting.",
+    "groups": [
+      {"label": "Schools", "categories": ["Schools+school"], "weight": "required"},
+      {"label": "Parks", "categories": ["park+park"], "weight": "preferred"},
+      {"label": "Hospitals", "categories": ["Hospitals+hospital"], "weight": "preferred"},
+      {"label": "Groceries", "categories": ["shops+food+supermarket"], "weight": "standard"},
+      {"label": "Banking", "categories": ["money+bank"], "weight": "standard"},
+      {"label": "Alcohol Outlets", "categories": ["food+drink+bar", "food+drink+pub", "shops+food+alcohol"], "weight": "avoided"}
+    ]
+  },
+
+  "non_worker_local": {
+    "label": "Non-Worker (neighbourhood-bound)",
+    "basis": "62% of trips are non-work and non-workers made 261 of 558 walking trips [rahul2021acceptable], so this profile spends the largest share of the day inside the neighbourhood and is the most exposed to whatever is in it. That exposure is the reason for the avoided group, and it is weighted more heavily here than for the school-run household on the same reasoning. Parks is required as the second of the two adequately mapped categories.",
+    "groups": [
+      {"label": "Parks", "categories": ["park+park"], "weight": "required"},
+      {"label": "Hospitals", "categories": ["Hospitals+hospital"], "weight": "preferred"},
+      {"label": "Pharmacies", "categories": ["Pharmacy+pharmacy"], "weight": "preferred"},
+      {"label": "Banking", "categories": ["money+bank", "money+atm"], "weight": "standard"},
+      {"label": "Groceries", "categories": ["shops+food+supermarket"], "weight": "standard"},
+      {"label": "Alcohol Outlets", "categories": ["food+drink+bar", "food+drink+pub", "shops+food+alcohol"], "weight": "preferred_avoided"}
+    ]
+  },
+
+  "social_recreational": {
+    "label": "Social/Recreational (leisure-trip dominant)",
+    "basis": "Eat-out, entertainment, recreation, social and civic purposes form a single 360 m bundle with no significant internal differences [rahul2021acceptable], so they are weighted together rather than split. This profile wants the licensed premises that the other two avoid, at the same distance, which is the clearest demonstration that the framework's output is a function of who is asking rather than of the location alone.",
+    "groups": [
+      {"label": "Dining", "categories": ["food+drink+restaurant", "food+drink+fast_food"], "weight": "preferred"},
+      {"label": "Nightlife", "categories": ["food+drink+bar", "food+drink+pub"], "weight": "preferred"},
+      {"label": "Parks", "categories": ["park+park"], "weight": "preferred"},
+      {"label": "Swimming Pools", "categories": ["leisure+swimming_pool"], "weight": "standard"},
+      {"label": "Banking", "categories": ["money+atm"], "weight": "standard"}
+    ]
+  }
+}

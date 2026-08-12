@@ -1,0 +1,23 @@
+# Versions the reported results were produced with. Upper bounds are deliberate:
+# geopandas, shapely and numpy have all shipped breaking changes within a major
+# version, and this should still run in a few years.
+
+# Ward assignment
+geopandas==1.1.4
+shapely==2.1.2
+pyproj==3.7.2
+Rtree==1.4.1
+pyogrio==0.13.0
+
+# Scoring, comparisons, routing graph
+numpy==2.2.6
+pandas==3.0.3
+scipy==1.16.1
+
+# Figures (src/analysis/render_maps.py, basemap.py)
+matplotlib==3.11.1
+Pillow==11.3.0
+
+# Utilities
+tqdm==4.67.1
+requests==2.32.5
