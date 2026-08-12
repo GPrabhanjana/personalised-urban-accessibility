@@ -107,6 +107,6 @@ schools are mapped completely enough to carry a `Required` designation.
 
 ## Licence
 
-Code is MIT (see `LICENSE`). Amenity and network data are derived from
-OpenStreetMap, © OpenStreetMap contributors, and are available under the Open
-Database License.
+Code is MIT (`LICENSE`). The data is derived from OpenStreetMap and is subject to
+the ODbL, and the ward boundaries to their own source's terms; see
+[`DATA-LICENSE.md`](DATA-LICENSE.md).
