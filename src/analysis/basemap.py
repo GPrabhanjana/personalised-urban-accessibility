@@ -30,7 +30,7 @@ PROVIDERS = {
                    "(C) OpenStreetMap contributors (C) CARTO"),
 }
 
-USER_AGENT = "OSFN-research-figure-render/1.0 (academic use; contact repo owner)"
+USER_AGENT = "personalised-urban-accessibility/1.0 (research figure rendering; contact repo owner)"
 CACHE = Path(__file__).resolve().parents[2] / "outputs" / ".tilecache"
 
 

@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "OSFN — One Size Fits None: personalised urban accessibility for Bengaluru"
+title: "An Interactive Framework for Personalised Urban Accessibility Assessment"
 message: "If you use this software or the derived data, please cite it."
 type: software
 authors:
@@ -9,7 +9,7 @@ authors:
   - family-names: Chanti
     given-names: S
     affiliation: "Department of Computer Science, Christ University, Bengaluru, India"
-repository-code: "https://github.com/GPrabhanjana/one-size-fits-none"
+repository-code: "https://github.com/GPrabhanjana/personalised-urban-accessibility"
 url: "https://bangalore-walkability-index.netlify.app/"
 abstract: >-
   An interactive framework for personalised urban accessibility assessment.

@@ -1,7 +1,8 @@
-# One Size Fits None
+# Personalised Urban Accessibility
 
-Code and derived data for a personalised urban accessibility framework, applied
-to all 198 wards of Bruhat Bengaluru Mahanagara Palike.
+Code and derived data for an interactive framework for personalised urban
+accessibility assessment, applied to all 198 wards of Bruhat Bengaluru
+Mahanagara Palike.
 
 Public walkability tools are easy to use but return one score to every resident
 of a location. Accessibility measures in the research literature can express
