@@ -446,274 +446,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .header {
-        height: 60px;
-        padding: 0 15px;
-        flex-wrap: wrap;
-    }
-    
-    .header h1 {
-        font-size: 20px;
-        flex: none;
-        width: 100%;
-        margin-bottom: 8px;
-    }
-    
-    .header-links {
-        gap: 15px;
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .header-links a {
-        padding: 6px 12px;
-        font-size: 12px;
-        border-radius: 8px;
-    }
-    
-    .search-container {
-        top: 65px;
-        left: 15px;
-        right: 15px;
-        width: auto;
-        position: relative;
-        z-index: 999;
-    }
-    
-    .container {
-        flex-direction: column;
-        padding-top: 65px;
-        height: calc(100vh - 65px);
-    }
-    
-    .control-panel {
-        width: 100%;
-        height: auto;
-        max-height: 45vh;
-        min-height: 300px;
-        position: relative;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        overflow-y: auto;
-        z-index: 998;
-    }
-    
-    .panel-section {
-        padding: 15px;
-    }
-    
-    .panel-section h3 {
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-    
-    .mode-selector {
-        margin-bottom: 12px;
-        padding: 3px;
-    }
-    
-    .mode-btn {
-        padding: 8px 12px;
-        font-size: 12px;
-        border-radius: 12px;
-    }
-    
-    .category-controls {
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 12px;
-    }
-    
-    .btn {
-        padding: 8px 14px;
-        font-size: 12px;
-        border-radius: 8px;
-        flex: 1;
-        min-width: calc(50% - 4px);
-    }
-    
-    .selected-items {
-        max-height: 200px;
-    }
-    
-    .selected-item {
-        padding: 10px;
-        margin-bottom: 8px;
-        border-radius: 8px;
-    }
-    
-    .item-name {
-        font-size: 14px;
-    }
-    
-    .weight-selector {
-        padding: 4px 8px;
-        font-size: 12px;
-        margin-left: 8px;
-    }
-    
-    .map-container {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 55vh;
-        position: relative;
-        z-index: 1;
-    }
-    
-    #map {
-        width: 100%;
-        height: 150%;
-    }
-    
-    .opacity-control {
-        bottom: 80px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-        min-width: auto;
-        padding: 10px 15px;
-    }
-    
-    .opacity-control h4 {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-    
-    .opacity-slider {
-        height: 5px;
-        margin-bottom: 6px;
-    }
-    
-    .legend {
-        bottom: 15px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-        min-width: auto;
-        padding: 10px 15px;
-    }
-    
-    .legend h4 {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-    
-    .legend-gradient {
-        height: 10px;
-        margin-bottom: 6px;
-    }
-    
-    .legend-labels {
-        font-size: 10px;
-    }
-    
-    .modal-content {
-        margin: 10% auto;
-        width: 90%;
-        max-width: none;
-        padding: 20px;
-        border-radius: 12px;
-        max-height: 70vh;
-    }
-    
-    .modal-header {
-        margin-bottom: 15px;
-        padding-bottom: 12px;
-    }
-    
-    .category-list {
-        max-height: 200px;
-        margin-bottom: 12px;
-    }
-    
-    .category-item {
-        padding: 10px;
-        font-size: 14px;
-    }
-    
-    .loading {
-        padding: 20px;
-        border-radius: 12px;
-        width: 80%;
-        max-width: 280px;
-    }
-    
-    .spinner {
-        width: 25px;
-        height: 25px;
-        border-width: 2px;
-        margin-bottom: 8px;
-    }
-}
-
-/* Extra small screens */
-@media (max-width: 480px) {
-    .header {
-        height: 55px;
-        padding: 0 10px;
-    }
-    
-    .header h1 {
-        font-size: 18px;
-    }
-    
-    .header-links a {
-        padding: 5px 10px;
-        font-size: 11px;
-    }
-    
-    .search-container {
-        top: 60px;
-        left: 10px;
-        right: 10px;
-    }
-    
-    .container {
-        padding-top: 60px;
-        height: calc(100vh - 60px);
-    }
-    
-    .control-panel {
-        max-height: 40vh;
-        min-height: 280px;
-    }
-    
-    .panel-section {
-        padding: 12px;
-    }
-    
-    .btn {
-        font-size: 11px;
-        padding: 6px 10px;
-    }
-    
-    .map-container {
-        height: 60vh;
-    }
-    
-    .opacity-control,
-    .legend {
-        right: 5px;
-        left: 5px;
-        padding: 8px 12px;
-    }
-    
-    .modal-content {
-        width: 95%;
-        padding: 15px;
-        margin: 5% auto;
-        max-height: 80vh;
-    }
-}
-
-
-
-
-
 /* Selected items - Updated styles following reference design language */
         .selected-item {
             display: flex;
@@ -1022,3 +754,391 @@
             font-size: 12px;
             color: #2c3e50;
         }
+
+
+/* Create Group layout: name and search side by side, then the two lists with
+   the transfer arrows between them. */
+        .group-fields {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .group-name-field {
+            flex: 0 0 200px;
+        }
+
+        .group-search-field {
+            flex: 1;
+        }
+
+        .group-transfer {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .transfer-arrows {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #availableCategories,
+        #selectedCategories {
+            height: 200px;
+        }
+
+        /* shown on phones only, below */
+        .panel-toggle {
+            display: none;
+        }
+
+/* Mobile.
+   Below 769px the side-by-side layout becomes one column: header, search,
+   controls, then the map filling whatever height is left. The page itself never
+   scrolls; the control panel scrolls internally once it reaches its cap, and
+   the map gives up height to it as categories are added. This block sits last
+   in the file so it wins over the desktop rules above it. */
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        height: 100dvh;         /* excludes the browser's own toolbars where supported */
+    }
+
+    .header {
+        position: relative;
+        flex: none;
+        height: auto;
+        flex-wrap: wrap;
+        row-gap: 6px;
+        padding: 8px 12px;
+    }
+
+    .header h1 {
+        flex: none;
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .header-links {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .header-links a {
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .search-container {
+        position: relative;
+        top: auto;
+        left: auto;
+        flex: none;
+        padding: 8px 12px 4px;
+        z-index: 1001;          /* suggestions drop down over the panel */
+    }
+
+    .leaflet-control-geocoder {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        background: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .leaflet-control-geocoder-form input {
+        min-height: 42px !important;
+        padding: 10px 14px 10px 42px !important;
+    }
+
+    .container {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+        padding-top: 0;
+        flex-direction: column;
+    }
+
+    .control-panel {
+        flex: none;
+        width: 100%;
+        max-height: 36vh;
+        border-right: none;
+    }
+
+    .container.panel-collapsed .control-panel {
+        display: none;
+    }
+
+    .panel-toggle {
+        display: block;
+        flex: none;
+        width: 100%;
+        padding: 6px 0;
+        border: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        background: rgba(74, 144, 226, 0.08);
+        color: #4a90e2;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .panel-section {
+        padding: 10px 14px;
+    }
+
+    .panel-section h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .mode-selector {
+        margin-bottom: 4px;
+        padding: 3px;
+    }
+
+    .mode-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        border-radius: 12px;
+    }
+
+    .category-controls {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 9px 10px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    /* the panel already scrolls; a second scroller inside it would fight it */
+    .selected-items {
+        max-height: none;
+    }
+
+    .selected-item {
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+
+    .item-name {
+        font-size: 14px;
+    }
+
+    .map-container {
+        position: relative;
+        top: auto;
+        flex: 1;
+        min-height: 0;
+    }
+
+    /* Opacity and legend share one row along the bottom of the map */
+    .opacity-control,
+    .legend {
+        bottom: 8px;
+        min-width: 0;
+        height: 52px;
+        padding: 6px 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.6);
+    }
+
+    .opacity-control {
+        left: 8px;
+        right: calc(50% + 4px);
+    }
+
+    .legend {
+        left: calc(50% + 4px);
+        right: 8px;
+    }
+
+    .opacity-control h4,
+    .legend h4 {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .opacity-slider {
+        margin-bottom: 0;
+    }
+
+    .legend-gradient {
+        height: 8px;
+        margin-bottom: 4px;
+    }
+
+    .legend-labels {
+        font-size: 10px;
+    }
+
+    /* lift Leaflet's zoom buttons and attribution clear of that row */
+    .map-container .leaflet-bottom {
+        bottom: 64px;
+    }
+
+    .modal-content {
+        width: calc(100% - 24px);
+        max-width: none;
+        max-height: calc(100% - 24px);
+        margin: 12px auto;
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .modal-header {
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+    }
+
+    .category-list {
+        max-height: 32vh;
+        margin-bottom: 12px;
+    }
+
+    .category-item,
+    #categoryModal .category-item {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* 16px stops iOS zooming the page when a text field takes focus */
+    .modal-content input[type="text"] {
+        font-size: 16px !important;
+    }
+
+    /* Add controls: one "label | control" row each instead of four columns */
+    .control-row {
+        grid-auto-flow: row;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: none;
+        column-gap: 12px;
+        row-gap: 10px;
+        align-items: center;
+    }
+
+    .control-row > .control-col > select,
+    .control-row > .control-col > .slider-wrap {
+        align-self: center;
+    }
+
+    /* Create Group: fields and the two lists stack vertically */
+    .group-fields {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .group-name-field {
+        flex: none;
+    }
+
+    #groupCategorySearch {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .group-transfer {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #availableCategories,
+    #selectedCategories {
+        height: 120px;
+    }
+
+    .transfer-arrows {
+        flex-direction: row;
+    }
+
+    /* the lists are now above and below each other, so the arrows point down/up */
+    .transfer-arrows .btn {
+        flex: none;
+        min-width: 64px;
+        font-size: 0;
+    }
+
+    .transfer-arrows .btn::after {
+        font-size: 16px;
+        content: '\2193';
+    }
+
+    .transfer-arrows .btn + .btn::after {
+        content: '\2191';
+    }
+
+    .loading {
+        padding: 20px;
+        border-radius: 12px;
+        width: 80%;
+        max-width: 280px;
+    }
+}
+
+/* Phones held sideways keep the side-by-side layout, but the two overlays
+   stacked on the right would cover most of the short map, so they share a row. */
+@media (min-width: 769px) and (max-height: 500px) {
+    .opacity-control,
+    .legend {
+        bottom: 8px;
+        width: 200px;
+        min-width: 0;
+        height: 52px;
+        padding: 6px 12px;
+    }
+
+    .opacity-control {
+        right: 216px;
+    }
+
+    .legend {
+        right: 8px;
+    }
+
+    .opacity-control h4,
+    .legend h4 {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .legend-gradient {
+        height: 8px;
+        margin-bottom: 4px;
+    }
+
+    .legend-labels {
+        font-size: 10px;
+    }
+
+    .map-container .leaflet-bottom.leaflet-right {
+        bottom: 64px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .header-links a {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}

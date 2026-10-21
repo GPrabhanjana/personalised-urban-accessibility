@@ -172,7 +172,14 @@ function initializeMap() {
     }).addTo(map);
 
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
-    
+
+    // On phones the map's height changes without the window resizing (the
+    // control panel above it grows as items are added), which Leaflet does not
+    // notice by itself.
+    if (window.ResizeObserver) {
+        new ResizeObserver(() => map.invalidateSize()).observe(document.getElementById('map'));
+    }
+
     setupMapEventHandlers();
 }
 
@@ -1096,9 +1103,12 @@ function toggleCustomDropdown(index) {
     // Position dropdown above or below based on available space
     const topPosition = shouldFlipUp ? rect.top - dropdownHeight - 2 : rect.bottom + 2;
     
+    // Keep the 200px-wide dropdown on screen on narrow viewports.
+    const leftPosition = Math.max(8, Math.min(rect.left - 20, window.innerWidth - 208));
+
     dropdown.style.cssText = `
         position: fixed;
-        left: ${rect.left - 20}px;
+        left: ${leftPosition}px;
         top: ${topPosition}px;
         background: white;
         border: 1px solid #ddd;
@@ -1235,6 +1245,15 @@ option.addEventListener('mouseleave', function () {
             }
         });
     }, 0);
+}
+
+// Phones only (the button is hidden on desktop): collapse the control panel so
+// the map can take the screen. The map resizes itself via its ResizeObserver.
+function togglePanel() {
+    const collapsed = document.querySelector('.container').classList.toggle('panel-collapsed');
+    const btn = document.querySelector('.panel-toggle');
+    btn.innerHTML = collapsed ? 'Show controls &#9662;' : 'Hide controls &#9652;';
+    btn.setAttribute('aria-expanded', String(!collapsed));
 }
 
 function selectAllItems() {

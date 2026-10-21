@@ -5,7 +5,8 @@
     background: transparent !important;
     backdrop-filter: blur(8px);
     box-shadow: none !important;
-    min-width: 640px !important;
+    /* 640px, or whatever is left right of the 370px panel offset on tablets */
+    width: min(640px, calc(100vw - 400px)) !important;
     max-width: 800px !important;
     overflow: visible !important; /* Allow suggestions to show below */
     position: relative;

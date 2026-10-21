@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bangalore Walkability Index</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="search.css?v=4" />
+    <link rel="stylesheet" href="search.css?v=5" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <link rel="stylesheet" href="style.css?v=16" />
+    <link rel="stylesheet" href="style.css?v=17" />
     
 <style>
         /* Search bar styles */
@@ -162,6 +162,9 @@
             </div>
         </div>
 
+        <!-- Phones only: collapses the control panel to give the map the screen -->
+        <button type="button" class="panel-toggle" aria-expanded="true" onclick="togglePanel()">Hide controls &#9652;</button>
+
         <!-- Map Container -->
         <div class="map-container">
             <div id="map"></div>
@@ -273,13 +276,13 @@
                 <span class="close" onclick="closeGroupModal()">&times;</span>
             </div>
             
-            <div style="margin-bottom: 15px; display: flex; gap: 15px; align-items: flex-end;">
-                <div style="flex: 0 0 200px;">
+            <div class="group-fields">
+                <div class="group-name-field">
                     <label for="groupName">Group Name:</label>
                     <input type="text" id="groupName" class="search-input"
                            placeholder="Group 1" style="padding: 8px 12px; font-size: 13px;">
                 </div>
-                <div style="flex: 1;">
+                <div class="group-search-field">
                     <label for="groupCategorySearch">Search Categories:</label>
                     <input type="text" id="groupCategorySearch" class="search-input"
                            placeholder="Search categories..."
@@ -322,22 +325,22 @@
                 </div>
             </div>
             
-            <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+            <div class="group-transfer">
                 <div style="flex: 1;">
                     <h4>Available Categories</h4>
-                    <div class="category-list" id="availableCategories" style="height: 200px;">
+                    <div class="category-list" id="availableCategories">
                         <!-- Available categories -->
                     </div>
                 </div>
-                
-                <div style="display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+
+                <div class="transfer-arrows">
                     <button class="btn btn-primary" onclick="moveToSelected()" style="padding: 5px 10px; background: linear-gradient(135deg, #48c78e 0%, #3aa76d 100%);">→</button>
                     <button class="btn btn-danger" onclick="moveToAvailable()" style="padding: 5px 10px;">←</button>
                 </div>
                 
                 <div style="flex: 1;">
                     <h4>Group Categories</h4>
-                    <div class="category-list" id="selectedCategories" style="height: 200px;">
+                    <div class="category-list" id="selectedCategories">
                         <!-- Selected categories -->
                     </div>
                 </div>
@@ -353,7 +356,7 @@
     <!-- Include Leaflet and dependencies -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script src="script.js?v=16"></script>
+    <script src="script.js?v=17"></script>
     
     <script>
         // Help modal functionality
