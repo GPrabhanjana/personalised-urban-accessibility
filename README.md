@@ -1,5 +1,11 @@
 # Personalised Urban Accessibility
 
+**Live demo:** <https://bangalore-walkability-index.netlify.app/>
+
+**Paper:** Ghuriki P, Chanti S. An interactive framework for personalised urban
+accessibility assessment. *Discover Cities* 3, 204 (2026).
+<https://doi.org/10.1007/s44327-026-00384-z>
+
 Code and derived data for an interactive framework for personalised urban
 accessibility assessment, applied to all 198 wards of Bruhat Bengaluru
 Mahanagara Palike.
@@ -11,10 +17,10 @@ framework does both: a user states what they want nearby, what they need, what
 they would rather avoid and how far they will walk for each, and the score
 updates immediately.
 
-This repository supports a manuscript submitted to *Discover Cities*. It
-contains the scoring engine, the profile construction, the comparisons reported
-in the paper, and the precomputed data those need. The manuscript and the web
-application are not included.
+This repository accompanies the [paper](https://doi.org/10.1007/s44327-026-00384-z)
+in *Discover Cities*. It contains the scoring engine, the profile construction,
+the comparisons reported in the paper, the precomputed data those need, and the
+web application behind the [live demo](https://bangalore-walkability-index.netlify.app/).
 
 ## The measure
 
@@ -68,6 +74,17 @@ python render_maps.py --whole-city --presets-file presets_demo.json \
 
 All of these run from the data in `outputs/`; nothing needs re-routing.
 
+## Web application
+
+`website/` is the static site deployed as the
+[live demo](https://bangalore-walkability-index.netlify.app/), with everything it
+needs in that folder. To run it locally, serve the folder rather than opening
+`index.html` directly:
+
+```sh
+python -m http.server --directory website
+```
+
 ## Layout
 
 | Path | Contents |
@@ -76,6 +93,7 @@ All of these run from the data in `outputs/`; nothing needs re-routing.
 | `src/01_isochrones/`, `src/02_grid/`, `src/03_maintain/` | Upstream pipeline: pedestrian graph, routed grid, category curation |
 | `outputs/` | Precomputed catchment counts and nearest-amenity distances |
 | `data/` | BBMP ward boundaries |
+| `website/` | The web application behind the live demo |
 
 ### Configuration
 

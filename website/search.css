@@ -1,0 +1,130 @@
+/* Geocoder Container */
+.leaflet-control-geocoder {
+    border: 2px solid #ffffff !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    backdrop-filter: blur(8px);
+    box-shadow: none !important;
+    min-width: 640px !important;
+    max-width: 800px !important;
+    overflow: visible !important; /* Allow suggestions to show below */
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Ensure form takes full width */
+.leaflet-control-geocoder-form {
+    flex: 1;
+    width: 100% !important;
+    position: relative;
+}
+
+/* Input field */
+.leaflet-control-geocoder input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    padding: 14px 20px 14px 46px !important; /* space for icon */
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: #000000 !important; /* black text */
+    width: 100% !important;
+    box-sizing: border-box !important;
+    line-height: 1.5 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    transition: none !important; /* Prevent any transitions that might hide the bar */
+}
+
+/* Keep input visible during loading */
+.leaflet-control-geocoder input:focus {
+    background: transparent !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Kill default geocoder icon */
+.leaflet-control-geocoder-icon {
+    display: none !important;
+}
+
+/* Custom search icon using an external logo */
+.leaflet-control-geocoder::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;     /* size of icon */
+    height: 18px;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/622/622669.png"); /* example magnifying glass icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+/* Suggestions dropdown - separate from main container */
+.leaflet-control-geocoder-alternatives {
+    position: absolute !important;
+    top: 100% !important; /* Position directly below the search bar */
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(255, 255, 255, 0.649) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 2px solid #ffffff !important;
+    backdrop-filter: blur(12px) !important;
+    border-top: none !important; /* Connect visually to search bar */
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    z-index: 999 !important;
+    margin-top: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Individual suggestion items */
+.leaflet-control-geocoder-alternatives a {
+    display: block !important;
+    padding: 12px 20px !important;
+    color: #333333 !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    transition: background-color 0.2s ease !important;
+}
+
+/* Hover effect for suggestions */
+.leaflet-control-geocoder-alternatives a:hover,
+.leaflet-control-geocoder-alternatives .leaflet-control-geocoder-selected {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #000000 !important;
+}
+
+/* Remove border from last suggestion */
+.leaflet-control-geocoder-alternatives a:last-child {
+    border-bottom: none !important;
+}
+
+/* Loading state - keep search bar visible */
+.leaflet-control-geocoder.leaflet-control-geocoder-expanded {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Ensure the search bar doesn't change size when showing suggestions */
+.leaflet-control-geocoder-form input {
+    height: auto !important;
+    min-height: 48px !important; /* Fixed height to prevent jumping */
+}
+
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}

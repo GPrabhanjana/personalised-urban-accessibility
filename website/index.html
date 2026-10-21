@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangalore Walkability Index</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="search.css?v=4" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="style.css?v=15" />
+    
+<style>
+        /* Search bar styles */
+        .search-container input,
+        .search-container-modal input,
+        #groupName {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+       
+        .search-container input:focus,
+        .search-container-modal input:focus,
+        #groupName:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+       
+        /* Help button styles */
+        .help-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ddfffe;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 8px;
+            color: #666;
+        }
+       
+        .help-btn:hover {
+            background: #b3eaff;
+            border-color: #999;
+        }
+       
+        /* Help dialog styles */
+        .help-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .help-modal[style*="block"] {
+            display: flex !important;
+        }
+       
+        .help-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+       
+        .help-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+       
+        .help-close {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+       
+        .help-close:hover {
+            background: #5a6268;
+        }
+       
+        .help-text {
+            line-height: 1.5;
+            color: #333;
+        }
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Bangalore Walkability Index</h1>
+        <div class="header-links">
+            <a href="https://gprabhanjana.netlify.app/">About me</a>
+            <a href="https://doi.org/10.1007/s44327-026-00384-z" target="_blank" rel="noopener">Know more</a>
+            <a href="#" class="help" onclick="openHelpModal('Info')">How to use</a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div id="geocoder"></div>
+    </div>
+
+    <div class="container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <!-- Visualization Mode -->
+            <div class="panel-section">
+                <h3>
+                    Visualization Mode
+                    <span class="help-btn" onclick="openHelpModal('visualization')">?</span>
+                </h3>
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="grid">Grid View</button>
+                    <button class="mode-btn" data-mode="ward">Ward View</button>
+                </div>
+            </div>
+
+            <!-- Category Management -->
+            <div class="panel-section">
+                <h3>
+                    Categories
+                    <span class="help-btn" onclick="openHelpModal('categories')">?</span>
+                </h3>
+                <div class="category-controls">
+                    <button class="btn btn-primary" onclick="openCategoryModal()">Add Category</button>
+                    <button class="btn btn-primary" onclick="openGroupModal()">Add Group</button>
+                </div>
+
+                <div class="selected-items" id="selectedItems">
+                    <!-- Selected items will be populated here -->
+                </div>
+                <hr>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="selectAllItems()">Select All</button>
+                    <button class="btn btn-danger" onclick="removeSelectedItems()">Remove Selected</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="map-container">
+            <div id="map"></div>
+            
+            <!-- Walk-time threshold -->
+            <!-- Opacity Control -->
+            <div class="opacity-control">
+                <h4>Layer Opacity</h4>
+                <input type="range" class="opacity-slider" id="opacitySlider" min="0" max="100" value="60">
+                <div class="opacity-value" id="opacityValue">60%</div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <h4>Score Scale</h4>
+                <div class="legend-gradient"></div>
+                <div class="legend-labels">
+                    <span>0.0</span>
+                    <span>0.5</span>
+                    <span>1.0</span>
+                </div>
+            </div>
+
+            <!-- Loading indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div>Processing data...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modals -->
+    <div id="helpModal" class="help-modal">
+        <div class="help-content">
+            <div class="help-header">
+                <h3 id="helpTitle">Help</h3>
+                <button class="help-close" onclick="closeHelpModal()">Close</button>
+            </div>
+            <div class="help-text" id="helpText">
+                <!-- Help content will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Selection Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Categories</h3>
+                <span class="close" onclick="closeCategoryModal()">&times;</span>
+            </div>
+            
+            <div class="search-container-modal">
+                <input type="text" id="categorySearch" class="search-input" placeholder="Search categories..." style="margin-bottom:20px;">
+            </div>
+            
+            <div class="category-list" id="categoryList">
+                <!-- Categories will be populated here -->
+            </div>
+
+            <div class="control-row">
+                <div class="control-col">
+                    <label for="categoryConstraint">How it's treated:</label>
+                    <select id="categoryConstraint" class="weight-selector"
+                            onchange="syncAddPanel('category')">
+                        <option value="none" selected>Wanted</option>
+                        <option value="required">Required</option>
+                        <option value="avoid">Avoid</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+                <div class="control-col" id="categoryWeightWrap">
+                    <label for="categoryWeight">How much it matters:</label>
+                    <select id="categoryWeight" class="weight-selector">
+                        <option value="Standard">Standard</option>
+                        <option value="Preferred">Emphasised</option>
+                    </select>
+                </div>
+                <div class="control-col" id="categoryDecayWrap">
+                    <label for="categoryDecay">How many nearby:</label>
+                    <select id="categoryDecay" class="weight-selector">
+                        <option value="Focused">A few</option>
+                        <option value="Balanced" selected>A handful</option>
+                        <option value="Expansive">A lot</option>
+                    </select>
+                </div>
+                <div class="control-col">
+                    <label for="categoryDist">How far you'll walk:</label>
+                    <div class="slider-wrap">
+                        <input type="range" id="categoryDist" min="0" max="12" step="1" value="6">
+                        <span id="categoryDistLabel" class="control-value">9 min</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="addSelectedCategories()">Add Selected</button>
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+                <button class="btn btn-secondary" onclick="selectAllCategories()">Select All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Creation Modal -->
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Group</h3>
+                <span class="close" onclick="closeGroupModal()">&times;</span>
+            </div>
+            
+            <div style="margin-bottom: 15px; display: flex; gap: 15px; align-items: flex-end;">
+                <div style="flex: 0 0 200px;">
+                    <label for="groupName">Group Name:</label>
+                    <input type="text" id="groupName" class="search-input"
+                           placeholder="Group 1" style="padding: 8px 12px; font-size: 13px;">
+                </div>
+                <div style="flex: 1;">
+                    <label for="groupCategorySearch">Search Categories:</label>
+                    <input type="text" id="groupCategorySearch" class="search-input"
+                           placeholder="Search categories..."
+                           style="padding: 8px 12px; font-size: 13px;">
+                </div>
+            </div>
+
+            <div class="control-row">
+                <div class="control-col">
+                    <label for="groupConstraint">How it's treated:</label>
+                    <select id="groupConstraint" class="weight-selector"
+                            onchange="syncAddPanel('group')">
+                        <option value="none" selected>Wanted</option>
+                        <option value="required">Required</option>
+                        <option value="avoid">Avoid</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+                <div class="control-col" id="groupWeightWrap">
+                    <label for="groupWeight">How much it matters:</label>
+                    <select id="groupWeight" class="weight-selector">
+                        <option value="Standard">Standard</option>
+                        <option value="Preferred">Emphasised</option>
+                    </select>
+                </div>
+                <div class="control-col" id="groupDecayWrap">
+                    <label for="groupDecay">How many nearby:</label>
+                    <select id="groupDecay" class="weight-selector">
+                        <option value="Focused">A few</option>
+                        <option value="Balanced" selected>A handful</option>
+                        <option value="Expansive">A lot</option>
+                    </select>
+                </div>
+                <div class="control-col">
+                    <label for="groupDist">How far you'll walk:</label>
+                    <div class="slider-wrap">
+                        <input type="range" id="groupDist" min="0" max="12" step="1" value="6">
+                        <span id="groupDistLabel" class="control-value">9 min</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <div style="flex: 1;">
+                    <h4>Available Categories</h4>
+                    <div class="category-list" id="availableCategories" style="height: 200px;">
+                        <!-- Available categories -->
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+                    <button class="btn btn-primary" onclick="moveToSelected()" style="padding: 5px 10px; background: linear-gradient(135deg, #48c78e 0%, #3aa76d 100%);">→</button>
+                    <button class="btn btn-danger" onclick="moveToAvailable()" style="padding: 5px 10px;">←</button>
+                </div>
+                
+                <div style="flex: 1;">
+                    <h4>Group Categories</h4>
+                    <div class="category-list" id="selectedCategories" style="height: 200px;">
+                        <!-- Selected categories -->
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="createGroup()">Add Group</button>
+                <button class="btn btn-secondary" onclick="closeGroupModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Leaflet and dependencies -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="script.js?v=15"></script>
+    
+    <script>
+        // Help modal functionality
+        function openHelpModal(type) {
+            const modal = document.getElementById('helpModal');
+            const title = document.getElementById('helpTitle');
+            const text = document.getElementById('helpText');
+            
+            if (type === 'visualization') {
+                title.textContent = 'Visualization Modes';
+                text.innerHTML = `
+                    <p><strong>Grid View:</strong> Scores each 250&nbsp;m square individually, for comparing addresses within a neighbourhood.</p>
+                    <p><strong>Ward View:</strong> Averages those squares over each BBMP ward, for comparing neighbourhoods against one another.</p>
+                `;
+            } else if (type === 'categories') {
+                title.textContent = 'Categories & Groups';
+                text.innerHTML = `
+                    <p><strong>Add Category:</strong> Select individual location categories to calculate walkability. Each category is evaluated independently.</p>
+                    <p><strong>Add Group:</strong> Combine multiple categories into a single group. All categories within a group are treated as one unit for scoring.</p>
+                    <p><strong>How it's treated:</strong> Wanted (adds to the score), Required (must be within reach, or the score is 0), Avoid (takes away from the score, more so the more of it is near), Never (any one within reach makes the score 0)</p>
+                    <p><strong>How much it matters:</strong> Standard (1x) or Emphasised (2x). For an avoided category this doubles the penalty instead. It does not apply to Required or Never, which are absolute rather than relative.</p>
+                    <p><strong>How many nearby:</strong> What a second and third option add once you have one - A few, A handful, A lot. Avoided items have no such setting, since you want none of them.</p>
+                    <p><strong>Tip:</strong> Wanted rows are tinted green and avoided rows red, so you can tell at a glance what a configuration is asking for.</p>
+                `;
+            } else if (type === 'Info') {
+                title.textContent = 'How to use this tool';
+                text.innerHTML = `
+                    <p>Most walkability tools give a location one score. This one asks
+                    what <em>you</em> need first, then scores the city against that, so two
+                    people can get different answers about the same street.</p>
+                    <br>
+                    <p>Add the categories you care about, then set four things for each.</p>
+                    <ul>
+                      <li><strong>How it's treated</strong> &mdash; Wanted counts towards the
+                      score. Required must be within reach or the score is 0. Avoid takes
+                      score away, more so the closer and commoner it is. Never means a single
+                      one within reach makes the score 0.</li>
+                      <li><strong>How much it matters</strong> &mdash; Standard, or Emphasised
+                      for twice the weight. For something you are avoiding, Emphasised
+                      doubles the penalty instead. It does not apply to Required or Never,
+                      which are absolute rather than relative.</li>
+                      <li><strong>How many nearby</strong> &mdash; what a second and third
+                      option add once you already have one. Pick <em>a few</em> if one or two
+                      is enough, <em>a handful</em> in between, <em>a lot</em> if variety
+                      keeps mattering. This is about repetition, not distance.</li>
+                      <li><strong>How far you'll walk</strong> &mdash; set separately for each
+                      category, from 3 to 15 minutes. A pharmacy might be 4 minutes and a
+                      park 15.</li>
+                    </ul>
+                    <br>
+                    <p>Grouping several categories together says you treat them as
+                    interchangeable: any one of them will do, so they stop counting
+                    separately.</p>
+                    <br>
+                    <p><strong>Reading the score.</strong> Scores run 0 to 1 and are meant for
+                    comparing places, not as an absolute rating. Around 0.5 means one of each
+                    thing you asked for is reachable; around 0.75 is comfortable provision;
+                    near 1 means enough duplication that losing any single place would not
+                    matter much. A single hospital does not push you to 1, by design. If you
+                    have named things to avoid, the score is what is left after those are
+                    subtracted.</p>
+                `;
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeHelpModal() {
+            document.getElementById('helpModal').style.display = 'none';
+        }
+        
+        // Close help modal when clicking outside
+        window.onclick = function(event) {
+            const helpModal = document.getElementById('helpModal');
+            if (event.target === helpModal) {
+                helpModal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
