@@ -148,12 +148,19 @@ function suppressPressureWarnings() {
 }
 
 function initializeMap() {
+    const isDesktop = window.innerWidth > 768;   // matches the mobile breakpoint in style.css
     map = L.map('map', {
         preferCanvas: true,
         zoomControl: false,
         paddingTopLeft: [350, 0], // 350px for control panel width
         paddingBottomRight: [0, 0]
-    }).setView([12.9716, 77.5946], 11);
+    }).setView([12.9888, 77.6221], isDesktop ? 12 : 11);   // centre of the BBMP ward extent
+
+    // On desktop the map runs underneath the 350px control panel, so shift the
+    // view to centre the city in the part of the map left visible.
+    if (isDesktop) {
+        map.panBy([-350 / 2, 0], { animate: false });
+    }
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
